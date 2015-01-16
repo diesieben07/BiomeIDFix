@@ -36,7 +36,7 @@ public final class ASMHooks {
 	}
 
 	private static void makeBiomeCat(CrashReport cr, String catName, BiomeGenBase biome) {
-		CrashReportCategory cat = cr.makeCategory("Biome 1");
+		CrashReportCategory cat = cr.makeCategory(catName);
 		cat.addCrashSection("Owning Mod", getOwningMod(biome));
 		cat.addCrashSection("Biome class", biome.getClass().getName());
 	}
