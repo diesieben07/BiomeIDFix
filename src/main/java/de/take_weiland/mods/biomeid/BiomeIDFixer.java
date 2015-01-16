@@ -1,32 +1,38 @@
 package de.take_weiland.mods.biomeid;
 
-import com.google.common.eventbus.EventBus;
-import cpw.mods.fml.common.DummyModContainer;
-import cpw.mods.fml.common.LoadController;
-import cpw.mods.fml.common.ModMetadata;
-
-import java.io.File;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * @author diesieben07
  */
-public class BiomeIDFixer extends DummyModContainer {
+@Mod(modid = "biomeidfix", name = "Biome ID Fixer", version = "@VERSION@")
+public class BiomeIDFixer {
 
-	public BiomeIDFixer() {
-		super(new ModMetadata());
-		ModMetadata meta = getMetadata();
-		meta.modId = "biomeidfix";
-		meta.name = "Biome ID Fixer";
-		meta.version = "@VERSION@";
+	@Mod.EventHandler
+	public void preInit(FMLPreInitializationEvent event) {
+		FMLCommonHandler.instance().bus().register(this);
 	}
 
-	@Override
-	public boolean registerBus(EventBus bus, LoadController controller) {
-		return true;
+	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
+	public void firstClientTick(TickEvent.ClientTickEvent event) {
+		if (event.phase == TickEvent.Phase.END) {
+			BiomeConflictManager.crashIfNecessary();
+			FMLCommonHandler.instance().bus().unregister(this);
+		}
 	}
 
-	@Override
-	public File getSource() {
-		return BiomeIDFixerLoader.source;
+	@Mod.EventHandler
+	@SideOnly(Side.SERVER)
+	public void firstServerTick(TickEvent.ServerTickEvent event) {
+		BiomeConflictManager.crashIfNecessary();
+		FMLCommonHandler.instance().bus().unregister(this);
 	}
+
 }

@@ -39,6 +39,7 @@ minecraft {
 jar {
     manifest {
         attributes 'FMLCorePlugin': 'de.take_weiland.mods.biomeid.BiomeIDFixerLoader'
+        attributes 'FMLCorePluginContainsFMLMod': 'true'
     }
 }
 

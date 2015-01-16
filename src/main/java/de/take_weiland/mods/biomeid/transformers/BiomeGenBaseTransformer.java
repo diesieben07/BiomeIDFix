@@ -57,7 +57,7 @@ public class BiomeGenBaseTransformer implements IClassTransformer {
 		toInject.add(new VarInsnNode(ILOAD, 1));
 		toInject.add(new VarInsnNode(ILOAD, 2));
 
-		String owner = "de/take_weiland/mods/biomeid/ASMHooks";
+		String owner = "de/take_weiland/mods/biomeid/BiomeConflictManager";
 		String name = "onBiomeConstruct";
 		String desc = Type.getMethodDescriptor(VOID_TYPE, getObjectType(BIOME_GEN_BASE_INT), INT_TYPE, BOOLEAN_TYPE);
 		toInject.add(new MethodInsnNode(INVOKESTATIC, owner, name, desc, false));
