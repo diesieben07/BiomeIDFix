@@ -1,0 +1,16 @@
+[
+{
+  "modid": "biomeidfix",
+  "name": "Biome ID Fixer",
+  "description": "Fixes Biomes silently overwriting each other.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["diesieben07"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
