@@ -11,7 +11,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 /**
  * @author diesieben07
  */
-@Mod(modid = "biomeidfix", name = "Biome ID Fixer", version = "@VERSION@")
+@Mod(modid = "biomeidfix", name = "Biome ID Fixer", version = "@VERSION@", acceptableRemoteVersions = "*")
 public class BiomeIDFixer {
 
 	@Mod.EventHandler
