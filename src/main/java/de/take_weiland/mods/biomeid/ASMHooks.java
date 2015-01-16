@@ -25,8 +25,8 @@ public final class ASMHooks {
 
 		BiomeGenBase presentBiome = BiomeGenBase.getBiomeGenArray()[desiredID];
 		if (presentBiome != null) {
-			CrashReport cr = new CrashReport("Registering Biome", new IllegalArgumentException("Duplicate BiomeID"));
-			cr.makeCategory("Biome ID").addCrashSection("ID", desiredID);
+			CrashReport cr = CrashReport.makeCrashReport(new IllegalArgumentException("Duplicate BiomeID"), "Registering Biome");
+			cr.makeCategory("Biome ID").addCrashSection("Biome ID", desiredID);
 
 			makeBiomeCat(cr, "Biome 1", presentBiome);
 			makeBiomeCat(cr, "Biome 2", biome);
@@ -36,7 +36,7 @@ public final class ASMHooks {
 	}
 
 	private static void makeBiomeCat(CrashReport cr, String catName, BiomeGenBase biome) {
-		CrashReportCategory cat = cr.makeCategory(catName);
+		CrashReportCategory cat = cr.makeCategoryDepth(catName, 2);
 		cat.addCrashSection("Owning Mod", getOwningMod(biome));
 		cat.addCrashSection("Biome class", biome.getClass().getName());
 	}
