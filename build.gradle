@@ -26,6 +26,12 @@ minecraft {
     runDir = "eclipse"
 }
 
+jar {
+    manifest {
+        attributes 'FMLCorePlugin': 'de.take_weiland.mods.biomeid.BiomeIDFixerLoader'
+    }
+}
+
 processResources
 {
     // this will ensure that this task is redone when the versions change.
