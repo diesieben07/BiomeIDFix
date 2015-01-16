@@ -15,7 +15,7 @@ public class BiomeIDFixer extends DummyModContainer {
 		ModMetadata meta = getMetadata();
 		meta.modId = "biomeidfix";
 		meta.name = "Biome ID Fixer";
-		meta.version = "1.7.10-0.1beta";
+		meta.version = "@VERSION@";
 	}
 
 	@Override

@@ -17,13 +17,23 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "1.7.10-0.1beta"
+version = "1.7.10-1.0"
+def ENV = System.getenv()
+if (ENV.DRONE_BUILD_NUMBER) {
+    version += "." + ENV.DRONE_BUILD_NUMBER
+} else {
+    version += ".local"
+}
+
 group= "de.take_weiland.mods.biomeid" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "BiomeIDFixer"
 
 minecraft {
     version = "1.7.10-10.13.2.1286"
     runDir = "eclipse"
+
+    replaceIn "BiomeIDFixer.java"
+    replace "@VERSION@", project.version
 }
 
 jar {
@@ -32,22 +42,20 @@ jar {
     }
 }
 
-processResources
-{
-    // this will ensure that this task is redone when the versions change.
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    classifier = 'deobf'
+}
 
-    // replace stuff in mcmod.info, nothing else
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-                
-        // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
-    }
-        
-    // copy everything else, thats not the mcmod.info
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
-    }
+task sourceJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+tasks.build.dependsOn('sourceJar', 'deobfJar')
+
+artifacts {
+    archives deobfJar
+    archives sourceJar
+    archives jar
 }
