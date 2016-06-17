@@ -28,7 +28,7 @@ public class BiomeIDFixer {
 		}
 	}
 
-	@Mod.EventHandler
+	@SubscribeEvent
 	@SideOnly(Side.SERVER)
 	public void firstServerTick(TickEvent.ServerTickEvent event) {
 		BiomeConflictManager.crashIfNecessary();
